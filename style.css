@@ -1,4 +1,10 @@
+*{
+  outline: solid 1px red;
+}
+
 body { min-height: 100vh; display: flex; flex-direction: column; }
-header{ } 
+header{
+  height: 15vh;
+ } 
 main{flex-grow: 1;} 
 footer{ }
