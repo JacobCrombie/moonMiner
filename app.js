@@ -1,13 +1,14 @@
-//Elements
 
+//Elements
+//TODO uncomment let playerName = prompt("Are you the One? Enter matrix given Name:")
 let upgradeElem = document.getElementById("upgrades")
 let playerElem = document.getElementById("player")
 
 // Player Data
 
-
+//TODO change count to zero uncomment name
 let player = {
-  name: "Jake",
+  // name: playerName,
   count: 1000
 }
 
@@ -19,6 +20,13 @@ let upgrades = [
     price: 100,
     quantity: 0,
     multiplier: 1,
+    auto: false
+  },
+  {
+    name: "Gun",
+    price: 100,
+    quantity: 0,
+    multiplier: 2,
     auto: false
   },
   {
@@ -41,14 +49,16 @@ let upgrades = [
     quantity: 0,
     multiplier: 2,
     auto: true
+  },
+  {
+    name: "Rovers",
+    price: 200,
+    quantity: 0,
+    multiplier: 2,
+    auto: true
   }
-
 ]
 
-
-let autoUpgrades = [
-
-]
 
 
 
@@ -118,7 +128,8 @@ function autoUpgrade() {
 //#region Draw Methods
 
 function drawPlayer() {
-  playerElem.innerHTML = `<div>Player Name: ${player.name}  Clicks: ${player.count} </div>`
+  playerElem.innerHTML = `<div>Player Name: ${player.name}</div>
+    <div>Clicks: ${player.count} </div>`
 }
 
 
@@ -133,7 +144,7 @@ function drawUpgrades() {
 }
 
 function upgradeTemplate(upgrade) {
-  return `<button class="" onclick="purchase('${upgrade.name}')">Type: ${upgrade.name} Price: ${upgrade.price} Quantity: ${upgrade.quantity} Multiplier: ${upgrade.multiplier}</button>`
+  return `<button class="btn btn-primary col-3 justify-space-around m-1" onclick="purchase('${upgrade.name}')">Type: ${upgrade.name} Price: ${upgrade.price} Quantity: ${upgrade.quantity} Multiplier: ${upgrade.multiplier}</button>`
 }
 
 

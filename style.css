@@ -1,10 +1,31 @@
-*{
+* {
   outline: solid 1px red;
 }
 
-body { min-height: 100vh; display: flex; flex-direction: column; background-color: grey; }
-header{
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* background-color: grey; */
+  background-image: url(matrixCode.gif);
+  background-size: cover;
+  background-position: center;
+}
+
+header {
   height: 10vh;
- } 
-main{flex-grow: 1;} 
-footer{ }
+}
+
+/* TODO add @media for mobile on image size */
+
+.clicker {
+  height: 30vh;
+  width: 40vw;
+  cursor: pointer;
+}
+
+main {
+  flex-grow: 1;
+}
+
+footer {}
