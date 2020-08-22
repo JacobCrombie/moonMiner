@@ -18,9 +18,14 @@ header {
 
 /* TODO add @media for mobile on image size */
 
+@media(max-width: 768px) {
+  .sm-clicker {
+    height: 80%;
+    width: 80%;
+  }
+}
+
 .clicker {
-  height: 30vh;
-  width: 40vw;
   cursor: pointer;
 }
 
