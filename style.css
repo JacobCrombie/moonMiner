@@ -2,7 +2,7 @@
   outline: solid 1px red;
 }
 
-body { min-height: 100vh; display: flex; flex-direction: column; }
+body { min-height: 100vh; display: flex; flex-direction: column; background-color: grey; }
 header{
   height: 10vh;
  } 

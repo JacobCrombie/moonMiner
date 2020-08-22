@@ -1,8 +1,6 @@
 //Elements
 
-
-let autoUpgradesElem = document.getElementById("autoUpgrades")
-let clickUpgradesElem = document.getElementById("clickUpgrades")
+let upgradeElem = document.getElementById("upgrades")
 let playerElem = document.getElementById("player")
 
 // Player Data
@@ -15,25 +13,40 @@ let player = {
 
 
 //Upgrades Data
-let clickUpgrades = [
+let upgrades = [
   {
     name: "Pickaxes",
     price: 100,
-    quantity: 1,
-    multiplier: 1
+    quantity: 0,
+    multiplier: 1,
+    auto: false
+  },
+  {
+    name: "Gun",
+    price: 100,
+    quantity: 0,
+    multiplier: 2,
+    auto: false
+  },
+  {
+    name: "Rovers",
+    price: 200,
+    quantity: 0,
+    multiplier: 2,
+    auto: true
+  },
+  {
+    name: "Tank",
+    price: 300,
+    quantity: 0,
+    multiplier: 2,
+    auto: true
   }
-
 
 ]
 
 
 let autoUpgrades = [
-  {
-    name: "Rovers",
-    price: 600,
-    quantity: 0,
-    multiplier: 20
-  }
 
 ]
 
@@ -43,31 +56,61 @@ let autoUpgrades = [
 
 function mine() {
   // forloop to go over upgrades multiply quantity by multiplier
-    clickUpgrades.forEach(upgrade => {
-    player.count += upgrade.quantity * upgrade.multiplier +1
+  // debugger
+  console.log(player.count)
+  upgrades.forEach(upgrade => {
+    if (upgrade.quantity == 0) {
+      return
+    } else if (upgrade.auto == true) {
+      return
+    } else {
+      player.count += upgrade.quantity * upgrade.multiplier
+      console.log(player.count)
+    }
   })
-
+  player.count++
   drawPlayer()
 }
+
 
 function purchase(name) {
   // if statement for (player.count >= upgrade.price) then increase upgrade quantity by 1 and decrease player.count by upgrade.price
-  
-  let upgrade = clickUpgrades.find(u => u.name == name)
-   if (!upgrade) {
-     upgrade = autoUpgrades.find(u => u.name == name)
-   }
-  
-  
-  if(upgrade.price> player.count){
-     return
-   }else{
-     upgrade.quantity++
-     player.count -= upgrade.price
-   }
+
+  let purchased = upgrades.find(u => u.name == name)
+
+
+
+  if (purchased.price > player.count) {
+    return
+  } else {
+    if (purchased.auto == true) {
+      autoUpgrade()
+    }
+    purchased.quantity++
+    player.count -= purchased.price
+    purchased.price = Math.floor(purchased.price * 1.15)
+
+  }
+
   drawPlayer()
   drawUpgrades()
 }
+
+function autoUpgrade() {
+  setInterval(function () {
+    upgrades.forEach(upgrade => {
+      if (upgrade.auto == false) {
+        return
+      } else {
+        player.count += upgrade.quantity * upgrade.multiplier
+      }
+      drawPlayer()
+    })
+  }, 5000)
+}
+
+
+
 
 //#endregion
 
@@ -80,18 +123,13 @@ function drawPlayer() {
 
 
 function drawUpgrades() {
-  let autotemplate = ""
-  let clicktemplate = ""
+  let template = ""
 
-  autoUpgrades.forEach(upgrade => {
-    autotemplate += upgradeTemplate(upgrade)
-  })
 
-  clickUpgrades.forEach(upgrade => {
-    clicktemplate += upgradeTemplate(upgrade)
+  upgrades.forEach(upgrade => {
+    template += upgradeTemplate(upgrade)
   })
-  autoUpgradesElem.innerHTML = autotemplate
-  clickUpgradesElem.innerHTML = clicktemplate
+  upgradeElem.innerHTML = template
 }
 
 function upgradeTemplate(upgrade) {
