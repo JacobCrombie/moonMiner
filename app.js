@@ -1,6 +1,6 @@
 
 //Elements
-//TODO uncomment let playerName = prompt("Are you the One? Enter matrix given Name:")
+
 let upgradeElem = document.getElementById("upgrades")
 let playerElem = document.getElementById("player")
 let clickUpgradeElem = document.getElementById("clickUpgradeData")
@@ -10,10 +10,23 @@ let autoUpgradeElem = document.getElementById("autoUpgradeData")
 
 //TODO change count to zero uncomment name
 let player = {
-  // name: playerName,
-  count: 1000
+  count: 100
 }
 
+function setPlayer(event) {
+  event.preventDefault()
+  let form = event.target
+
+
+  player['name'] = form.playerName.value
+
+  document.getElementById("game").classList.remove("d-none")
+  document.getElementById("upButtons").classList.remove("d-none")
+  document.getElementById("form").classList.add("d-none")
+  drawPlayer()
+}
+
+// TODO maybe work on adding images for quantity
 let playerUpgrades = []
 
 //Upgrades Data
@@ -44,25 +57,25 @@ let upgrades = [
   },
   {
     name: "Trinity",
-    price: 200,
+    price: 3000,
     quantity: 0,
-    multiplier: 2,
+    multiplier: 5,
     auto: true,
     img: "Trinity.png"
   },
   {
     name: "Morpheus",
-    price: 300,
+    price: 5000,
     quantity: 0,
-    multiplier: 2,
+    multiplier: 8,
     auto: true,
     img: "morpheus.png"
   },
   {
     name: "Neo",
-    price: 500,
+    price: 10000,
     quantity: 0,
-    multiplier: 2,
+    multiplier: 10,
     auto: true,
     img: "neo.png"
   }
@@ -89,11 +102,12 @@ function mine() {
   })
   player.count++
   drawPlayer()
+  // drawDisabled()
 }
 
 
 function purchase(name) {
-  // if statement for (player.count >= upgrade.price) then increase upgrade quantity by 1 and decrease player.count by upgrade.price
+  // TODO add your draw function for interval purchase here
 
   let purchased = upgrades.find(u => u.name == name)
 
@@ -112,6 +126,7 @@ function purchase(name) {
   }
   drawPlayerUpgrades()
   drawPlayer()
+  // drawDisabled()
   drawUpgrades()
 }
 
@@ -158,8 +173,28 @@ function drawPlayerUpgrades() {
 }
 
 function playerUpgradesTemplate(upgrade) {
-  return `<li class="text-light">Price: ${upgrade.price}|<img src="${upgrade.img}" alt=""> X${upgrade.multiplier * upgrade.quantity}</li>`
+  return `<li class="text-light">${upgrade.quantity}|<img src="${upgrade.img}" alt=""> X${upgrade.multiplier * upgrade.quantity}</li>`
 }
+//TODO slacked tim for help on this one wait on reply or ask about it on grading its skipping my if and else statements uncomment all draws
+
+//  function drawDisabled() {
+//   debugger
+//   upgrades.forEach(upgrade => {
+//     toggleDisabled(upgrade)
+//   });
+// }
+
+// function toggleDisabled(upgrade) {
+//   let buttonElems = document.querySelectorAll('btn-hide')
+//   console.log(buttonElems)
+//   buttonElems.forEach(btn => {
+//     if (upgrade.price > player.count) {
+//       btn.classList.add("disabled")
+//     } else {
+//       btn.classList.remove("disabled")
+//     }
+//   });
+// }
 
 function drawUpgrades() {
   let template = ""
@@ -169,9 +204,9 @@ function drawUpgrades() {
   })
   upgradeElem.innerHTML = template
 }
-
+// TODO after you get the clear and add disabled class done try adding the removing display none function add the draw to the mine function
 function upgradeTemplate(upgrade) {
-  return `<button class="btn btn-primary col-3 justify-space-around m-1" onclick="purchase('${upgrade.name}')"><img src="${upgrade.img}" alt="" >${upgrade.quantity}</button>`
+  return `<button class="btn btn-primary col-3 justify-space-around m-1 btn-hide disabled" onclick="purchase('${upgrade.name}')"><img src="${upgrade.img}" alt="" >Price:${upgrade.price}</button>`
 }
 
 
@@ -179,8 +214,9 @@ function upgradeTemplate(upgrade) {
 
 function updateScreen() {
   drawUpgrades()
-  drawPlayer()
   drawPlayerUpgrades()
+  // drawDisabled()
+  drawPlayer()
 }
 
 updateScreen()

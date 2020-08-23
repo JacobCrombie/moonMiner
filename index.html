@@ -18,8 +18,20 @@
   </header>
 
   <main class="container-fluid">
+    <section class="row" id="form">
+      <div class="col col-md-4 offset-md-4 mt-5">
+        <form class="text-center text-light" onsubmit="setPlayer(event)">
+          <div class="form-group">
+            <label for="playerName" class="text-under">PlayerName</label>
+            <input type="playerName" class="form-control" id="playerName">
+            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </section>
 
-    <section class="row">
+    <section class="row d-none" id="game">
 
       <div class="col-12 d-flex text-center">
         <div class="col-6" style="list-style:none" id="clickUpgradeData">
@@ -35,12 +47,9 @@
       </div>
     </section>
 
-    <section class="row">
-
+    <section class="row d-none" id="upButtons">
       <div id="upgrades" class="col justify-content-center d-flex flex-wrap">
       </div>
-
-
     </section>
 
   </main>
