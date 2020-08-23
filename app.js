@@ -3,6 +3,8 @@
 //TODO uncomment let playerName = prompt("Are you the One? Enter matrix given Name:")
 let upgradeElem = document.getElementById("upgrades")
 let playerElem = document.getElementById("player")
+let clickUpgradeElem = document.getElementById("clickUpgradeData")
+let autoUpgradeElem = document.getElementById("autoUpgradeData")
 
 // Player Data
 
@@ -12,50 +14,57 @@ let player = {
   count: 1000
 }
 
+let playerUpgrades = []
 
 //Upgrades Data
 let upgrades = [
   {
-    name: "Pickaxes",
-    price: 100,
+    name: "Red Pill",
+    price: 50,
     quantity: 0,
     multiplier: 1,
-    auto: false
+    auto: false,
+    img: "redpill.png"
   },
   {
-    name: "Gun",
-    price: 100,
+    name: "Spoon",
+    price: 75,
     quantity: 0,
     multiplier: 2,
-    auto: false
+    auto: false,
+    img: "spoon.png"
   },
   {
-    name: "Gun",
+    name: "Glock",
     price: 100,
     quantity: 0,
-    multiplier: 2,
-    auto: false
+    multiplier: 3,
+    auto: false,
+    img: "gun.png"
   },
   {
-    name: "Rovers",
+    name: "Trinity",
     price: 200,
     quantity: 0,
     multiplier: 2,
-    auto: true
+    auto: true,
+    img: "Trinity.png"
   },
   {
-    name: "Tank",
+    name: "Morpheus",
     price: 300,
     quantity: 0,
     multiplier: 2,
-    auto: true
+    auto: true,
+    img: "morpheus.png"
   },
   {
-    name: "Rovers",
-    price: 200,
+    name: "Neo",
+    price: 500,
     quantity: 0,
     multiplier: 2,
-    auto: true
+    auto: true,
+    img: "neo.png"
   }
 ]
 
@@ -101,12 +110,13 @@ function purchase(name) {
     purchased.price = Math.floor(purchased.price * 1.15)
 
   }
-
+  drawPlayerUpgrades()
   drawPlayer()
   drawUpgrades()
 }
 
 function autoUpgrade() {
+  //TODO remove interval to restart
   setInterval(function () {
     upgrades.forEach(upgrade => {
       if (upgrade.auto == false) {
@@ -132,10 +142,27 @@ function drawPlayer() {
     <div>Clicks: ${player.count} </div>`
 }
 
+function drawPlayerUpgrades() {
+  let clickTemplate = ""
+  let autoTemplate = ""
+
+  upgrades.forEach(upgrade => {
+    if (upgrade.auto == true) {
+      autoTemplate += playerUpgradesTemplate(upgrade)
+    } else {
+      clickTemplate += playerUpgradesTemplate(upgrade)
+    }
+  })
+  clickUpgradeElem.innerHTML = clickTemplate
+  autoUpgradeElem.innerHTML = autoTemplate
+}
+
+function playerUpgradesTemplate(upgrade) {
+  return `<li class="text-light">Price: ${upgrade.price}|<img src="${upgrade.img}" alt=""> X${upgrade.multiplier * upgrade.quantity}</li>`
+}
 
 function drawUpgrades() {
   let template = ""
-
 
   upgrades.forEach(upgrade => {
     template += upgradeTemplate(upgrade)
@@ -144,7 +171,7 @@ function drawUpgrades() {
 }
 
 function upgradeTemplate(upgrade) {
-  return `<button class="btn btn-primary col-3 justify-space-around m-1" onclick="purchase('${upgrade.name}')">Type: ${upgrade.name} Price: ${upgrade.price} Quantity: ${upgrade.quantity} Multiplier: ${upgrade.multiplier}</button>`
+  return `<button class="btn btn-primary col-3 justify-space-around m-1" onclick="purchase('${upgrade.name}')"><img src="${upgrade.img}" alt="" >${upgrade.quantity}</button>`
 }
 
 
@@ -153,6 +180,7 @@ function upgradeTemplate(upgrade) {
 function updateScreen() {
   drawUpgrades()
   drawPlayer()
+  drawPlayerUpgrades()
 }
 
 updateScreen()

@@ -1,12 +1,11 @@
-* {
+/* * {
   outline: solid 1px red;
-}
+} */
 
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* background-color: grey; */
   background-image: url(matrixCode.gif);
   background-size: cover;
   background-position: center;
@@ -16,12 +15,10 @@ header {
   height: 10vh;
 }
 
-/* TODO add @media for mobile on image size */
-
 @media(max-width: 768px) {
   .sm-clicker {
-    height: 80%;
-    width: 80%;
+    height: 40vh;
+    width: 40%;
   }
 }
 
@@ -33,4 +30,7 @@ main {
   flex-grow: 1;
 }
 
-footer {}
+footer {
+  height: 10%;
+  color: rgb(127, 235, 19);
+}
