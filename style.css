@@ -13,6 +13,7 @@ body {
 
 header {
   height: 10vh;
+  color: rgb(127, 235, 19);
 }
 
 @media(max-width: 768px) {

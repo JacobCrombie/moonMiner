@@ -8,9 +8,8 @@ let autoUpgradeElem = document.getElementById("autoUpgradeData")
 
 // Player Data
 
-//TODO change count to zero uncomment name
 let player = {
-  count: 100
+  count: 0
 }
 
 function setPlayer(event) {
@@ -206,7 +205,7 @@ function drawUpgrades() {
 }
 // TODO after you get the clear and add disabled class done try adding the removing display none function add the draw to the mine function
 function upgradeTemplate(upgrade) {
-  return `<button class="btn btn-primary col-3 justify-space-around m-1 btn-hide disabled" onclick="purchase('${upgrade.name}')"><img src="${upgrade.img}" alt="" >Price:${upgrade.price}</button>`
+  return `<button class="btn btn-secondary col-3 justify-space-around m-1 btn-hide " onclick="purchase('${upgrade.name}')"><img src="${upgrade.img}" alt="" >Price:${upgrade.price}</button>`
 }
 
 
