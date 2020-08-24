@@ -100,8 +100,7 @@ function mine() {
     }
   })
   player.count++
-  drawPlayer()
-  // drawDisabled()
+  updateScreen()
 }
 
 
@@ -123,10 +122,7 @@ function purchase(name) {
     purchased.price = Math.floor(purchased.price * 1.15)
 
   }
-  drawPlayerUpgrades()
-  drawPlayer()
-  // drawDisabled()
-  drawUpgrades()
+updateScreen()
 }
 
 function autoUpgrade() {
@@ -176,24 +172,22 @@ function playerUpgradesTemplate(upgrade) {
 }
 //TODO slacked tim for help on this one wait on reply or ask about it on grading its skipping my if and else statements uncomment all draws
 
-//  function drawDisabled() {
-//   debugger
-//   upgrades.forEach(upgrade => {
-//     toggleDisabled(upgrade)
-//   });
-// }
+ function drawDisabled() {
+  upgrades.forEach(upgrade => {
+    toggleDisabled(upgrade)
+  });
+}
 
-// function toggleDisabled(upgrade) {
-//   let buttonElems = document.querySelectorAll('btn-hide')
-//   console.log(buttonElems)
-//   buttonElems.forEach(btn => {
-//     if (upgrade.price > player.count) {
-//       btn.classList.add("disabled")
-//     } else {
-//       btn.classList.remove("disabled")
-//     }
-//   });
-// }
+function toggleDisabled(upgrade) {
+  let btnElem = document.getElementById(upgrade.name)
+
+    if (upgrade.price > player.count) {
+      btnElem.classList.add("disabled")
+    } else {
+      btnElem.classList.remove("disabled")
+    }
+;
+}
 
 function drawUpgrades() {
   let template = ""
@@ -205,7 +199,7 @@ function drawUpgrades() {
 }
 // TODO after you get the clear and add disabled class done try adding the removing display none function add the draw to the mine function
 function upgradeTemplate(upgrade) {
-  return `<button class="btn btn-secondary col-3 justify-space-around m-1 btn-hide " onclick="purchase('${upgrade.name}')"><img src="${upgrade.img}" alt="" >Price:${upgrade.price}</button>`
+  return `<button class="btn btn-secondary col-3 justify-space-around m-1 btn-hide " id="${upgrade.name}" onclick="purchase('${upgrade.name}')"><img src="${upgrade.img}" alt="" >Price:${upgrade.price}</button>`
 }
 
 
@@ -214,7 +208,7 @@ function upgradeTemplate(upgrade) {
 function updateScreen() {
   drawUpgrades()
   drawPlayerUpgrades()
-  // drawDisabled()
+  drawDisabled()
   drawPlayer()
 }
 
